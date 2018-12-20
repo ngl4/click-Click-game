@@ -1,0 +1,29 @@
+header {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.header-title {
+    font-size: 1.8vw;
+}
+
+.header-midtitle {
+    font-size: 1.5vw;
+    padding-top: 2px;
+}
+
+.header-scoretitle {
+    font-size: 1.6vw;
+    padding-top: 2px;
+}
+
+.heading-background {
+    background: url("./images/bg_header.png");
+    background-position-y: 30%;
+    background-position-x: -45%;
+
+}
+
+footer {
+    position: absolute;
+    bottom: 0px;
+}
+
