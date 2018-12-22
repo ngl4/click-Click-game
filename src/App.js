@@ -8,7 +8,10 @@ import pic4 from "./images/pic4.jpeg";
 import pic5 from "./images/pic5.jpeg";
 import pic6 from "./images/pic6.jpeg";
 
+// set up an array for shuffling purpose
 const images = [pic1, pic2, pic3, pic4, pic5, pic6];
+
+//TODO: Add a setTimeout method for stating with "Click an image to Start" everytime the score is back to 0
 
 class App extends Component {
   state = {
@@ -18,10 +21,6 @@ class App extends Component {
     guessedCorrect: true
   };
 
-  // handleClickChange = (event) => {
-  //   const {name, value} = event.target;
-
-  // }
   //This is the reason why you do not want to mutate state
   // let newArr = [...this.state.array]
   // newArr.push('something')
@@ -99,12 +98,6 @@ class App extends Component {
     console.log(newArray);
     this.shuffleArray(images);
   };
-
-  // Every time a user click on the image, it should push the image to an array. A score will increment.
-  // if a new click image has the same image name as the one in the array, it should return
-  //and give 0 score
-
-  // the top score is gonna increment until a mismatch found
 
   render() {
 
