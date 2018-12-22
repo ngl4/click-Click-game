@@ -5,7 +5,7 @@ const BearCard = (props) => {
     return (
             <div className="card m-3 bear-image">
                 <div className="card-body">
-                    <img alt={props.image} src={props.image} height="" width="230px" />
+                    <img alt={props.image} src={props.image} height="" width="230px" onClick={() => props.handleClickImage(props.image)} data-id={props.image}/>
                 </div>
             </div>
     )
