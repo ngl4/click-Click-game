@@ -8,11 +8,14 @@ import pic4 from "./images/pic4.jpeg";
 import pic5 from "./images/pic5.jpeg";
 import pic6 from "./images/pic6.jpeg";
 
+const images = [pic1, pic2, pic3, pic4, pic5, pic6];
+
 class App extends Component {
   state = {
     score: 0,
     topScore: 0,
-    array: []
+    array: [],
+    guessedCorrect: true
   };
 
   // handleClickChange = (event) => {
@@ -24,12 +27,12 @@ class App extends Component {
   // newArr.push('something')
   // this.setState({array: newArr})
 
-  shuffleArray = array => {
-    for (let i = array.length - 1; i > 0; i--) {
+  shuffleArray = arr => {
+    for (let i = arr.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
+      [arr[i], arr[j]] = [arr[j], arr[i]];
     }
-    return array;
+    return arr;
   };
 
   handleClickImage = elem => {
@@ -38,53 +41,63 @@ class App extends Component {
 
     if (newArray.length === 0) {
       newArray.push(elem);
-      if(this.state.score >= this.state.topScore){
+      this.setState({
+        guessedCorrect: true
+      });
+      if (this.state.score >= this.state.topScore) {
         this.setState({
           score: this.state.score + 1,
           topScore: this.state.topScore + 1,
-          array: newArray
+          array: newArray,
+          guessedCorrect: true
+
         });
-      }else {
+        console.log("%cyou guessed correctly", "color: green");
+      } else {
         this.setState({
           score: this.state.score + 1,
           topScore: this.state.topScore,
           array: newArray
         });
+        console.log("%cyou guessed correctly", "color: green");
       }
-      
     } else {
       const found = newArray.includes(elem);
 
       if (!found) {
         newArray.push(elem);
-        if (this.state.score >= this.state.topScore){
+        if (this.state.score >= this.state.topScore) {
           this.setState({
             score: this.state.score + 1,
             topScore: this.state.topScore + 1,
-            array: newArray
+            array: newArray,
+            guessedCorrect: true
           });
-        }else {
+          console.log("%cyou guessed correctly", "color: green");
+        } else {
           this.setState({
             score: this.state.score + 1,
             topScore: this.state.topScore,
-            array: newArray
+            array: newArray,
+            guessedCorrect: true
+
           });
+          console.log("%cyou guessed correctly", "color: green");
         }
-        
+
       } else {
         this.setState({
           score: 0,
           topScore: this.state.topScore,
-          array: []
+          array: [],
+          guessedCorrect: false
         });
+        console.log("%cyou guessed incorrectly", "color: red");
       }
     }
 
     console.log(newArray);
-
-    this.setState({
-      
-    });
+    this.shuffleArray(images);
   };
 
   // Every time a user click on the image, it should push the image to an array. A score will increment.
@@ -94,6 +107,18 @@ class App extends Component {
   // the top score is gonna increment until a mismatch found
 
   render() {
+
+    let title;
+
+    if (!this.state.guessedCorrect){
+      title = <h2 style={{color: "pink"}}>You Guessed Incorrectly</h2>;
+    }else if (this.state.array.length === 0){
+      title = "Click an image to Start!";
+    }else if (this.state.guessedCorrect) {
+      title = <h2 style={{color: "lightgreen"}}>You Guessed Correctly</h2>;
+    }
+
+
     return (
       <div>
         <div className="wrapper">
@@ -101,7 +126,7 @@ class App extends Component {
           <header className="bg-danger p-4 fixed-top">
             <div className="container d-flex justify-content-between text-white font-weight-bold">
               <div className="header-title">Clickling Game</div>
-              <div className="header-midtitle">Click an Image to Start!</div>
+              <div className="header-midtitle">{title}</div>
               <div className="header-scoretitle">
                 Score: {this.state.score} | Top Score: {this.state.topScore}{" "}
               </div>
@@ -123,37 +148,12 @@ class App extends Component {
 
           {/* Content: Clicky boxes */}
           <div className="container clicky-wrap">
-            <BearCard
-              image={pic1}
+            {images.map((pic) => (<BearCard
+              image={pic}
               handleClickImage={this.handleClickImage}
-              data_id={pic1}
-            />
-            <BearCard
-              image={pic2}
-              handleClickImage={this.handleClickImage}
-              data_id={pic2}
-            />
-            <BearCard
-              image={pic3}
-              handleClickImage={this.handleClickImage}
-              data_id={pic3}
-            />
-            <BearCard
-              image={pic4}
-              handleClickImage={this.handleClickImage}
-              data_id={pic4}
-            />
-            <BearCard
-              image={pic5}
-              handleClickImage={this.handleClickImage}
-              data_id={pic5}
-            />
-            <BearCard
-              image={pic6}
-              handleClickImage={this.handleClickImage}
-              data_id={pic6}
-            />
-          </div>
+              key={pic}
+            />))}
+           </div>
 
           {/* Footer - force bottom */}
           <footer className="container-fluid bg-danger text-white p-3">
