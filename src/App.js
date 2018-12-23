@@ -12,13 +12,15 @@ import pic6 from "./images/pic6.jpeg";
 const images = [pic1, pic2, pic3, pic4, pic5, pic6];
 
 //TODO: Add a setTimeout method for stating with "Click an image to Start" everytime the score is back to 0
-
+//TODO: Animating Effect for incorrect answer
 class App extends Component {
   state = {
     score: 0,
+    
     topScore: 0,
     array: [],
-    guessedCorrect: true
+    guessedCorrect: "true",
+    guessedIncorrect: "false"
   };
 
   //This is the reason why you do not want to mutate state
@@ -41,14 +43,14 @@ class App extends Component {
     if (newArray.length === 0) {
       newArray.push(elem);
       this.setState({
-        guessedCorrect: true
+        guessedCorrect: "true"
       });
       if (this.state.score >= this.state.topScore) {
         this.setState({
           score: this.state.score + 1,
           topScore: this.state.topScore + 1,
           array: newArray,
-          guessedCorrect: true
+          guessedCorrect: "true"
 
         });
         console.log("%cyou guessed correctly", "color: green");
@@ -70,7 +72,7 @@ class App extends Component {
             score: this.state.score + 1,
             topScore: this.state.topScore + 1,
             array: newArray,
-            guessedCorrect: true
+            guessedCorrect: "true"
           });
           console.log("%cyou guessed correctly", "color: green");
         } else {
@@ -78,7 +80,7 @@ class App extends Component {
             score: this.state.score + 1,
             topScore: this.state.topScore,
             array: newArray,
-            guessedCorrect: true
+            guessedCorrect: "true"
 
           });
           console.log("%cyou guessed correctly", "color: green");
@@ -89,7 +91,7 @@ class App extends Component {
           score: 0,
           topScore: this.state.topScore,
           array: [],
-          guessedCorrect: false
+          guessedCorrect: "false"
         });
         console.log("%cyou guessed incorrectly", "color: red");
       }
